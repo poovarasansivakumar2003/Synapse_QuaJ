@@ -4,7 +4,7 @@
   "description": "Pages",
   "homepage": ".",
   "repository": {
-    "type": "git",
+    "type": "git"
   },
   "license": "MIT",
 
