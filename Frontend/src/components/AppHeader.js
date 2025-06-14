@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CContainer,
   CDropdown,
@@ -13,8 +13,8 @@ import {
   CNavLink,
   CNavItem,
   useColorModes,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import {
   cilBell,
   cilContrast,
@@ -23,30 +23,30 @@ import {
   cilMenu,
   cilMoon,
   cilSun,
-} from '@coreui/icons'
+} from '@coreui/icons';
 
-import { AppBreadcrumb } from './index'
-import { AppHeaderDropdown } from './header/index'
+import { AppBreadcrumb } from './index';
+import { AppHeaderDropdown } from './header/index';
 
 const AppHeader = () => {
-  const headerRef = useRef()
-  const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const headerRef = useRef();
+  const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme');
 
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const dispatch = useDispatch();
+  const sidebarShow = useSelector((state) => state.sidebarShow);
 
   useEffect(() => {
     const handleScroll = () => {
       headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
-    }
+        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+    };
 
-    document.addEventListener('scroll', handleScroll)
+    document.addEventListener('scroll', handleScroll);
 
     return () => {
-      document.removeEventListener('scroll', handleScroll) // Cleanup event listener
-    }
-  }, [])
+      document.removeEventListener('scroll', handleScroll); // Cleanup event listener
+    };
+  }, []);
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
@@ -57,36 +57,31 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="d-none d-md-flex">
+        <CHeaderNav className="d-none d-md-flex align-items-center">
           <CNavItem>
             <CNavLink to="/dashboard" as={NavLink}>
               Dashboard
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/users" as={NavLink}> {/* Updated href="#" to to="/users" */}
-              Users
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink to="/settings" as={NavLink}> {/* Updated href="#" to to="/settings" */}
+            <CNavLink to="/settings" as={NavLink}>
               Settings
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
-        <CHeaderNav className="ms-auto">
+        <CHeaderNav className="ms-auto align-items-center">
           <CNavItem>
-            <CNavLink to="/notifications" as={NavLink}> {/* Updated href="#" to to="/notifications" */}
+            <CNavLink to="/notifications" as={NavLink}>
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/tasks" as={NavLink}> {/* Updated href="#" to to="/tasks" */}
+            <CNavLink to="/tasks" as={NavLink}>
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/messages" as={NavLink}> {/* Updated href="#" to to="/messages" */}
+            <CNavLink to="/messages" as={NavLink}>
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
@@ -145,7 +140,7 @@ const AppHeader = () => {
         <AppBreadcrumb />
       </CContainer>
     </CHeader>
-  )
-}
+  );
+};
 
-export default AppHeader
+export default AppHeader;

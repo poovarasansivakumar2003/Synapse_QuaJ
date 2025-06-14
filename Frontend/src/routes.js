@@ -52,6 +52,11 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+const StudentDashboard = React.lazy(() => import('./views/dashboard/StudentDashboard'))
+const AlumniDashboard = React.lazy(() => import('./views/dashboard/AlumniDashboard'))
+const AdminDashboard = React.lazy(() => import('./views/dashboard/AdminDashboard'))
+const Settings = React.lazy(() => import('./views/pages/settings/Settings'))
+
 const routes = [
   { path: '/', name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -98,6 +103,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/student/profile', name: 'Student Dashboard', element: StudentDashboard },
+  { path: '/alumni/profile', name: 'Alumni Dashboard', element: AlumniDashboard },
+  { path: '/admin/profile', name: 'Admin Dashboard', element: AdminDashboard },
+  { path: '/settings', name: 'Settings', element: Settings },
 ]
 
 export default routes

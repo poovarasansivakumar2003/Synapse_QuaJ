@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CButton,
   CCard,
@@ -12,29 +12,36 @@ import {
   CInputGroupText,
   CRow,
   CFormSelect,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
 
 const Register = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [repeatPassword, setRepeatPassword] = useState('')
-  const [role, setRole] = useState('student')
-  const [university, setUniversity] = useState('')
-  const [usn, setUsn] = useState('')
-  const [batch, setBatch] = useState('')
-  const [branch, setBranch] = useState('')
-  const [isVerified, setIsVerified] = useState(false)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [role, setRole] = useState('student');
+  const [university, setUniversity] = useState('');
+  const [usn, setUsn] = useState('');
+  const [batch, setBatch] = useState('');
+  const [branch, setBranch] = useState('');
+  const [isVerified, setIsVerified] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    const universityEmailRegex = /.+@uvce\.ac\.in$/;
+    if (!universityEmailRegex.test(email)) {
+      alert('Please enter a valid university email address!');
+      return;
+    }
+
     if (password !== repeatPassword) {
-      alert('Passwords do not match!')
-      return
+      alert('Passwords do not match!');
+      return;
     }
 
     try {
@@ -54,24 +61,23 @@ const Register = () => {
           branch,
           isVerified,
         }),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
-        alert('Registration successful!')
-        navigate('/dashboard')
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        alert('Registration successful!');
+        navigate('/login');
       } else {
-        alert(data.error || 'Registration failed')
+        alert(data.error || 'Registration failed');
       }
     } catch (err) {
-      alert('Server error')
-      console.log(err)
-      console.error(err)
+      alert('Server error');
+      console.error(err);
     }
-  }
+  };
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -83,7 +89,6 @@ const Register = () => {
                 <CForm onSubmit={handleRegister}>
                   <h1>Register</h1>
                   <p className="text-body-secondary">Create your account</p>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
@@ -95,7 +100,6 @@ const Register = () => {
                       required
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
                     <CFormInput
@@ -106,7 +110,6 @@ const Register = () => {
                       required
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilLockLocked} />
@@ -119,7 +122,6 @@ const Register = () => {
                       required
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilLockLocked} />
@@ -132,16 +134,14 @@ const Register = () => {
                       required
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>Role</CInputGroupText>
                     <CFormSelect value={role} onChange={(e) => setRole(e.target.value)} required>
                       <option value="student">Student</option>
                       <option value="admin">Admin</option>
-                      <option value="user">User</option>
+                      <option value="alumni">Alumni</option>
                     </CFormSelect>
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>University</CInputGroupText>
                     <CFormInput
@@ -150,7 +150,6 @@ const Register = () => {
                       onChange={(e) => setUniversity(e.target.value)}
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>USN</CInputGroupText>
                     <CFormInput
@@ -159,7 +158,6 @@ const Register = () => {
                       onChange={(e) => setUsn(e.target.value)}
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>Batch</CInputGroupText>
                     <CFormInput
@@ -168,7 +166,6 @@ const Register = () => {
                       onChange={(e) => setBatch(e.target.value)}
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>Branch</CInputGroupText>
                     <CFormInput
@@ -177,7 +174,6 @@ const Register = () => {
                       onChange={(e) => setBranch(e.target.value)}
                     />
                   </CInputGroup>
-
                   <CInputGroup className="mb-4 align-items-center">
                     <input
                       type="checkbox"
@@ -189,7 +185,6 @@ const Register = () => {
                       Is Verified
                     </label>
                   </CInputGroup>
-
                   <div className="d-grid">
                     <CButton type="submit" color="success">
                       Create Account
@@ -202,83 +197,7 @@ const Register = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Register
-
-
-
-// ============================================
-//old
-// import React from 'react'
-// import {
-//   CButton,
-//   CCard,
-//   CCardBody,
-//   CCol,
-//   CContainer,
-//   CForm,
-//   CFormInput,
-//   CInputGroup,
-//   CInputGroupText,
-//   CRow,
-// } from '@coreui/react'
-// import CIcon from '@coreui/icons-react'
-// import { cilLockLocked, cilUser } from '@coreui/icons'
-
-// const Register = () => {
-//   return (
-//     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
-//       <CContainer>
-//         <CRow className="justify-content-center">
-//           <CCol md={9} lg={7} xl={6}>
-//             <CCard className="mx-4">
-//               <CCardBody className="p-4">
-//                 <CForm>
-//                   <h1>Register</h1>
-//                   <p className="text-body-secondary">Create your account</p>
-//                   <CInputGroup className="mb-3">
-//                     <CInputGroupText>
-//                       <CIcon icon={cilUser} />
-//                     </CInputGroupText>
-//                     <CFormInput placeholder="Username" autoComplete="username" />
-//                   </CInputGroup>
-//                   <CInputGroup className="mb-3">
-//                     <CInputGroupText>@</CInputGroupText>
-//                     <CFormInput placeholder="Email" autoComplete="email" />
-//                   </CInputGroup>
-//                   <CInputGroup className="mb-3">
-//                     <CInputGroupText>
-//                       <CIcon icon={cilLockLocked} />
-//                     </CInputGroupText>
-//                     <CFormInput
-//                       type="password"
-//                       placeholder="Password"
-//                       autoComplete="new-password"
-//                     />
-//                   </CInputGroup>
-//                   <CInputGroup className="mb-4">
-//                     <CInputGroupText>
-//                       <CIcon icon={cilLockLocked} />
-//                     </CInputGroupText>
-//                     <CFormInput
-//                       type="password"
-//                       placeholder="Repeat password"
-//                       autoComplete="new-password"
-//                     />
-//                   </CInputGroup>
-//                   <div className="d-grid">
-//                     <CButton color="success">Create Account</CButton>
-//                   </div>
-//                 </CForm>
-//               </CCardBody>
-//             </CCard>
-//           </CCol>
-//         </CRow>
-//       </CContainer>
-//     </div>
-//   )
-// }
-
-// export default Register
+export default Register;

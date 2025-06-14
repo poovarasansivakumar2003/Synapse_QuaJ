@@ -19,22 +19,22 @@ import {
 import CIcon from '@coreui/icons-react';
 import { cilPeople, cilBriefcase, cilSchool } from '@coreui/icons';
 
-const Dashboard = () => {
-  const users = [
-    { name: 'John Doe', country: 'India', usage: 75, lastLogin: '2 hours ago' },
-    { name: 'Jane Smith', country: 'USA', usage: 50, lastLogin: '1 day ago' },
-    { name: 'Alice Johnson', country: 'UK', usage: 90, lastLogin: '30 mins ago' },
+const StudentDashboard = () => {
+  const batchmates = [
+    { name: 'John Doe', branch: 'CSE', batch: 2021 },
+    { name: 'Jane Smith', branch: 'ECE', batch: 2021 },
+    { name: 'Alice Johnson', branch: 'MECH', batch: 2021 },
   ];
 
   return (
-    <div className="dashboard">
+    <div className="student-dashboard">
       <CRow className="mb-4">
         <CCol sm={4}>
           <CWidgetStatsA
             className="mb-4"
             color="primary"
-            value="1,245"
-            title="Total Alumni"
+            value="45"
+            title="Batchmates"
             icon={<CIcon icon={cilPeople} height={36} />}
           />
         </CCol>
@@ -42,8 +42,8 @@ const Dashboard = () => {
           <CWidgetStatsB
             className="mb-4"
             color="success"
-            value="325"
-            title="Active Mentorships"
+            value="12"
+            title="Mentorship Requests"
             icon={<CIcon icon={cilBriefcase} height={36} />}
           />
         </CCol>
@@ -51,8 +51,8 @@ const Dashboard = () => {
           <CWidgetStatsC
             className="mb-4"
             color="info"
-            value="98%"
-            title="Placement Rate"
+            value="85%"
+            title="Academic Progress"
             icon={<CIcon icon={cilSchool} height={36} />}
           />
         </CCol>
@@ -60,30 +60,23 @@ const Dashboard = () => {
 
       <CCard className="mb-4">
         <CCardHeader>
-          <h4>User Activity Overview</h4>
+          <h4>Batchmates</h4>
         </CCardHeader>
         <CCardBody>
-          <CRow className="mb-3">
-            <CCol>
-              <CButton color="primary">Refresh Data</CButton>
-            </CCol>
-          </CRow>
           <CTable hover responsive>
             <CTableHead>
               <CTableRow>
                 <CTableHeaderCell>Name</CTableHeaderCell>
-                <CTableHeaderCell>Country</CTableHeaderCell>
-                <CTableHeaderCell>Usage (%)</CTableHeaderCell>
-                <CTableHeaderCell>Last Login</CTableHeaderCell>
+                <CTableHeaderCell>Branch</CTableHeaderCell>
+                <CTableHeaderCell>Batch</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
             <CTableBody>
-              {users.map((user, idx) => (
+              {batchmates.map((batchmate, idx) => (
                 <CTableRow key={idx}>
-                  <CTableDataCell>{user.name}</CTableDataCell>
-                  <CTableDataCell>{user.country}</CTableDataCell>
-                  <CTableDataCell>{user.usage}</CTableDataCell>
-                  <CTableDataCell>{user.lastLogin}</CTableDataCell>
+                  <CTableDataCell>{batchmate.name}</CTableDataCell>
+                  <CTableDataCell>{batchmate.branch}</CTableDataCell>
+                  <CTableDataCell>{batchmate.batch}</CTableDataCell>
                 </CTableRow>
               ))}
             </CTableBody>
@@ -93,14 +86,21 @@ const Dashboard = () => {
 
       <CCard className="mb-4">
         <CCardHeader>
-          <h4>Upcoming Events</h4>
+          <h4>Actions</h4>
         </CCardHeader>
         <CCardBody>
-          <p>No upcoming events. Stay tuned!</p>
+          <CRow>
+            <CCol>
+              <CButton color="primary">View Batchmates</CButton>
+              <CButton color="success" className="ms-3">
+                Request Mentorship
+              </CButton>
+            </CCol>
+          </CRow>
         </CCardBody>
       </CCard>
     </div>
   );
 };
 
-export default Dashboard;
+export default StudentDashboard;
