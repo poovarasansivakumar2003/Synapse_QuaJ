@@ -1,6 +1,8 @@
+import cors from 'cors' 
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
+import routes from './routes/index.js'  // or './routes' if using folder as a module
 
 dotenv.config()
 
@@ -13,8 +15,9 @@ const startServer = async () => {
     await connectDB()
     console.log('✅ Database connected successfully')
 
+    app.use(cors()) 
     app.use(express.json())
-
+    app.use('/', routes)
     // Optional test route
     app.get('/ping', (req, res) => res.send('pong'))
 

@@ -7,6 +7,7 @@ module.exports = {
   register: async (req, res) => {
     try {
       debug(`Registration attempt: ${req.body.email}`)
+      console.log('Register endpoint hit, body:', req.body)
       const user = await User.create(req.body)
       const token = jwt.sign(
         { id: user._id, role: user.role },
@@ -17,6 +18,7 @@ module.exports = {
       res.status(201).json({ token, user })
     } catch (err) {
       debug('Registration error:', err.message)
+      console.log('Registration error:', err.message)
       res.status(400).json({ error: err.message })
     }
   },
