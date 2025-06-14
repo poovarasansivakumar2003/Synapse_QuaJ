@@ -1,20 +1,28 @@
-const express = require('express')
+import express from 'express'
+import debug from 'debug'
+import authRoutes from './authRoutes.js'
+import adminRoutes from './adminRoutes.js'
+import mentorshipRoutes from './mentorshipRoutes.js'
+import alumniRoutes from './alumniRoutes.js'
+import studentRoutes from './studentRoutes.js'
+import { authenticate } from '../middleware/auth.js'
+
 const router = express.Router()
+const debugLog = debug('app:routes')
 
-const debug = require('debug')('app:routes')
+router.use('/auth', authRoutes)
 
-router.use('/auth', require('./authRoutes'))
+router.use(authenticate)
+debugLog('🔐 Authentication middleware applied')
 
-router.use(require('../middleware/auth').authenticate)
-debug('🔐 Authentication middleware applied')
+router.use('/admin', adminRoutes)
+debugLog('👨‍💼 Admin routes loaded')
+router.use('/mentorship', mentorshipRoutes)
+debugLog('🤝 Mentorship routes loaded')
+router.use('/alumni', alumniRoutes)
+debugLog('🎓 Alumni routes loaded')
+router.use('/students', studentRoutes)
+debugLog('👩‍🎓 Student routes loaded')
 
-router.use('/admin', require('./adminRoutes'))
-debug('👨‍💼 Admin routes loaded')
-router.use('/mentorship', require('./mentorshipRoutes'))
-debug('🤝 Mentorship routes loaded')
-router.use('/alumni', require('./alumniRoutes'))
-debug('🎓 Alumni routes loaded')
-router.use('/students', require('./studentRoutes'))
-debug('👩‍🎓 Student routes loaded')
-module.exports = router
-debug('📦 Main routes module loaded')
+export default router
+debugLog('📦 Main routes module loaded')

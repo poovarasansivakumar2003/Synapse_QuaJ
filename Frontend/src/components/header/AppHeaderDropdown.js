@@ -7,18 +7,29 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CDropdownDivider,
 } from '@coreui/react'
 import {
   cilBell,
   cilEnvelopeOpen,
   cilSettings,
   cilUser,
+  cilAccountLogout,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { useNavigate } from 'react-router-dom'
+import { clearAuth } from '../../utils/auth'
 
 import avatar8 from './../../assets/images/avatars/1.jpg'
 
 const AppHeaderDropdown = () => {
+  const navigate = useNavigate()
+  
+  const handleLogout = () => {
+    clearAuth()
+    navigate('/login')
+  }
+  
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -49,6 +60,11 @@ const AppHeaderDropdown = () => {
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
           Settings
+        </CDropdownItem>
+        <CDropdownDivider />
+        <CDropdownItem onClick={handleLogout}>
+          <CIcon icon={cilAccountLogout} className="me-2" />
+          Logout
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

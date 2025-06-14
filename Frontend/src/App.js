@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { CSpinner, useColorModes } from '@coreui/react'
@@ -7,6 +7,10 @@ import './scss/style.scss'
 
 // We use those styles to show code examples, you should remove them in your application.
 import './scss/examples.scss'
+
+// Auth utilities
+import { isAuthenticated } from './utils/auth'
+import ProtectedRoute from './components/ProtectedRoute'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
@@ -45,11 +49,34 @@ const App = () => {
         }
       >
         <Routes>
-          <Route exact path="/login" name="Login Page" element={<Login />} />
-          <Route exact path="/register" name="Register Page" element={<Register />} />
+          <Route 
+            exact 
+            path="/login" 
+            name="Login Page" 
+            element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Login />} 
+          />
+          <Route 
+            exact 
+            path="/register" 
+            name="Register Page" 
+            element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Register />} 
+          />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route exact path="/500" name="Page 500" element={<Page500 />} />
-          <Route path="*" name="Home" element={<DefaultLayout />} />
+          <Route 
+            exact 
+            path="/" 
+            element={<Navigate to={isAuthenticated() ? "/dashboard" : "/login"} replace />} 
+          />
+          <Route 
+            path="*" 
+            name="Home" 
+            element={
+              <ProtectedRoute>
+                <DefaultLayout />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
       </Suspense>
     </HashRouter>

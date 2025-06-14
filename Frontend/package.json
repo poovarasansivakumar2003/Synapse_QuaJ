@@ -1,10 +1,10 @@
 {
-  "name": "Synapse_QuaJ",
-  "version": "1",
+  "name": "synapse-quaj",
+  "version": "1.0.0",
   "description": "Pages",
   "homepage": ".",
   "repository": {
-    "type": "git",
+    "type": "git"
   },
   "license": "MIT",
 

@@ -38,29 +38,31 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/auth/register', {
+      const userData = {
+        name,
+        email,
+        password,
+        role,
+        university,
+        usn,
+        batch,
+        branch,
+        isVerified,
+      };
+
+      const res = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role,
-          university,
-          usn,
-          batch,
-          branch,
-          isVerified,
-        }),
+        body: JSON.stringify(userData),
       })
 
       const data = await res.json()
 
       if (res.ok) {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
+        // Use our auth utility
+        localStorage.setItem('@synapse-quaj/token', data.token)
         alert('Registration successful!')
         navigate('/dashboard')
       } else {
@@ -68,7 +70,6 @@ const Register = () => {
       }
     } catch (err) {
       alert('Server error')
-      console.log(err)
       console.error(err)
     }
   }

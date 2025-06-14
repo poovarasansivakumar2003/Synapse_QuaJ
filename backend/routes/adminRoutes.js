@@ -1,13 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const adminController = require('../controllers/adminController')
-const auth = require('../middleware/auth')
+import express from 'express'
+import * as adminController from '../controllers/adminControllerSimple.js'
+import { authenticate, authorize } from '../middleware/auth.js'
 
-router.use(auth.authenticate)
-router.use(auth.authorize('admin'))
+const router = express.Router()
+
+router.use(authenticate)
+router.use(authorize('admin'))
 router.get('/users', adminController.getAllUsers)
 router.get('/mentorships', adminController.generateSkillGapReport)
 router.post('/university', adminController.createUniversity)
 router.put('/user/:userId', adminController.manageUser)
 
-module.exports = router
+export default router
