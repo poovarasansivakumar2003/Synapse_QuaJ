@@ -1,13 +1,14 @@
-const SkillGap = require('../models/SkillGap.model')
-const Analytics = require('../models/Analytics.model')
+import SkillGap from '../models/SkillGap.model.js'
+import Analytics from '../models/Analytics.model.js'
 
-module.exports = {
+const skillGapController = {
   calculateSkillGaps: async (req, res) => {
     if (!req.user || !req.user.university) {
       return res
         .status(400)
         .json({ error: 'User not authenticated or university not specified' })
     }
+
     const skills = [
       'JavaScript',
       'Python',
@@ -256,3 +257,5 @@ module.exports = {
     res.json(results)
   },
 }
+
+export default skillGapController

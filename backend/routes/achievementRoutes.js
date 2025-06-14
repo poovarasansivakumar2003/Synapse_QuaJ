@@ -1,10 +1,11 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/achievementController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/achievementController.js';
+import { authenticate } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
-router.get('/', controller.getAchievements)
-router.post('/', controller.unlockAchievement)
+const router = express.Router();
 
-module.exports = router
+router.use(authenticate);
+router.get('/', controller.getAchievements);
+router.post('/', controller.unlockAchievement);
+
+export default router;

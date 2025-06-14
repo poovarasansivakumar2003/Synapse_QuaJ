@@ -1,5 +1,5 @@
-const User = require('./User.model')
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
+import User from './User.model.js';
 
 const adminSchema = new mongoose.Schema({
   permissions: [
@@ -14,6 +14,8 @@ const adminSchema = new mongoose.Schema({
     },
   ],
   accessLevel: { type: Number, default: 1 },
-})
+});
 
-module.exports = User.discriminator('Admin', adminSchema)
+const Admin = User.discriminator('Admin', adminSchema);
+
+export default Admin;

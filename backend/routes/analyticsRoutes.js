@@ -1,11 +1,13 @@
-const router = require('express').Router()
-const controller = require('../controllers/analyticsController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/analyticsController.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
-router.use(auth.authorize('admin'))
+const router = express.Router();
 
-router.get('/', controller.getDashboardData)
-router.get('/export/:type', controller.exportData)
+router.use(authenticate);
+router.use(authorize('admin'));
 
-module.exports = router
+router.get('/', controller.getDashboardData);
+router.get('/export/:type', controller.exportData);
+
+export default router;

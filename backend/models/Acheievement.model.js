@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const achievementSchema = new mongoose.Schema(
   {
@@ -19,6 +19,8 @@ const achievementSchema = new mongoose.Schema(
     unlockedAt: Date,
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('Achievement', achievementSchema)
+const Achievement = mongoose.model('Achievement', achievementSchema);
+
+export default Achievement;

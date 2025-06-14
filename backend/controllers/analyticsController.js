@@ -1,30 +1,32 @@
-const Analytics = require('../models/Analytics.model')
-const { Parser } = require('json2csv')
+import Analytics from '../models/Analytics.model.js';
+import { Parser } from 'json2csv';
 
-module.exports = {
+const analyticsController = {
   getDashboardData: async (req, res) => {
     const data = await Analytics.find({
       university: req.user.university,
       type: { $in: ['user_engagement', 'skill_gap', 'placement'] },
-    }).sort('-generatedAt')
+    }).sort('-generatedAt');
 
-    res.json(data)
+    res.json(data);
   },
 
   exportData: async (req, res) => {
-    const { type } = req.params
+    const { type } = req.params;
     const data = await Analytics.find({
       university: req.user.university,
       type,
-    })
+    });
 
     // Convert to CSV
-    const fields = ['type', 'generatedAt', 'data']
-    const parser = new Parser({ fields })
-    const csv = parser.parse(data)
+    const fields = ['type', 'generatedAt', 'data'];
+    const parser = new Parser({ fields });
+    const csv = parser.parse(data);
 
-    res.header('Content-Type', 'text/csv')
-    res.attachment(`${type}-analytics.csv`)
-    res.send(csv)
+    res.header('Content-Type', 'text/csv');
+    res.attachment(`${type}-analytics.csv`);
+    res.send(csv);
   },
-}
+};
+
+export default analyticsController;

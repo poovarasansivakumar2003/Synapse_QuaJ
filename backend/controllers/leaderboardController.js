@@ -1,6 +1,8 @@
-const Leaderboard = require('../models/Leaderboard.model')
-const User = require('../models/User.model')
-const debug = require('debug')('app:leaderboardController')
+import Leaderboard from '../models/Leaderboard.model.js'
+import User from '../models/User.model.js'
+import debugLib from 'debug'
+
+const debug = debugLib('app:leaderboardController')
 
 const PERIODS = {
   daily: 1,
@@ -15,7 +17,7 @@ function getStartDate(period) {
   return new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000)
 }
 
-module.exports = {
+const leaderboardController = {
   getLeaderboard: async (req, res) => {
     try {
       const period = req.query.period || 'weekly'
@@ -94,3 +96,5 @@ module.exports = {
     }
   },
 }
+
+export default leaderboardController

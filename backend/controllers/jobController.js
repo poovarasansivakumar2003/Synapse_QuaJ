@@ -1,10 +1,12 @@
-const Job = require('../models/Job.model')
-const debug = require('debug')('app:jobController')
+import Job from '../models/Job.model.js'
+import debugLib from 'debug'
 
-module.exports = {
+const debug = debugLib('app:jobController')
+
+const jobController = {
   getJobs: async (req, res) => {
     try {
-      debug('fetching jobs for :${req.user.id}')
+      debug(`Fetching jobs for user: ${req.user.id}`)
       const jobs = await Job.find({
         university: req.user.university,
         targetBranches: req.user.branch,
@@ -28,7 +30,7 @@ module.exports = {
           .status(400)
           .json({ error: 'You have already applied for this job' })
       }
-      job.application.push({
+      job.applications.push({
         applicant: req.user.id,
         status: 'submitted',
       })
@@ -40,3 +42,5 @@ module.exports = {
     }
   },
 }
+
+export default jobController

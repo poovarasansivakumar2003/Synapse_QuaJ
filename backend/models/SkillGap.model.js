@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const skillGapSchema = new mongoose.Schema(
   {
@@ -14,6 +14,8 @@ const skillGapSchema = new mongoose.Schema(
     trending: { type: Number, default: 0 }, // +1 increasing, -1 decreasing
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('SkillGap', skillGapSchema)
+const SkillGap = mongoose.model('SkillGap', skillGapSchema);
+
+export default SkillGap;

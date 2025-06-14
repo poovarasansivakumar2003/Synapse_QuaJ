@@ -12,8 +12,8 @@ const AppFooter = () => {
       </div>
       <div className="ms-auto">
         <span className="me-1">Powered by</span>
-        <a  rel="noopener noreferrer">
-          Shubham Taple &amp; Team
+        <a href="#" rel="noopener noreferrer">
+           Team
         </a>
       </div>
     </CFooter>

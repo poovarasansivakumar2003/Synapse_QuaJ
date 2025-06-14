@@ -1,12 +1,13 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/leaderboardController')
-const { authenticate } = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/leaderboardController.js';
+import { authenticate } from '../middleware/auth.js';
+
+const router = express.Router();
 
 // Get leaderboard for a period (via query param: ?period=daily|weekly|monthly|all-time)
-router.get('/', authenticate, controller.getLeaderboard)
+router.get('/', authenticate, controller.getLeaderboard);
 
 // Recalculate all periods
-router.post('/recalculate', authenticate, controller.calculateAllLeaderboards)
+router.post('/recalculate', authenticate, controller.calculateAllLeaderboards);
 
-module.exports = router
+export default router;

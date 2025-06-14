@@ -1,10 +1,12 @@
-const router = require('express').Router()
-const controller = require('../controllers/skillGapController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/skillGapController.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
-router.use(auth.authorize('admin'))
+const router = express.Router();
 
-router.post('/calculate', controller.calculateSkillGaps)
+router.use(authenticate);
+router.use(authorize('admin'));
 
-module.exports = router
+router.post('/calculate', controller.calculateSkillGaps);
+
+export default router;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const batchSchema = new mongoose.Schema(
   {
@@ -26,4 +26,6 @@ const batchSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-module.exports = mongoose.model('Batch', batchSchema)
+const Batch = mongoose.model('Batch', batchSchema)
+
+export default Batch

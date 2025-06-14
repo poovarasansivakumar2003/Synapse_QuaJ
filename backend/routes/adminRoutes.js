@@ -1,14 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const adminController = require('../controllers/adminController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import adminController from '../controllers/adminController.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
-router.use(auth.authorize('admin'))
-router.patch('/user/:userId/verify', adminController.verifyUser)
-router.get('/users', adminController.getAllUsers)
-router.get('/mentorships', adminController.generateSkillGapReport)
-// router.post('/university', adminController.createUniversity)
-router.put('/user/:userId', adminController.manageUser)
+const router = express.Router();
 
-module.exports = router
+router.use(authenticate);
+router.use(authorize('admin'));
+router.patch('/user/:userId/verify', adminController.verifyUser);
+router.get('/users', adminController.getAllUsers);
+router.get('/mentorships', adminController.generateSkillGapReport);
+// router.post('/university', adminController.createUniversity);
+router.put('/user/:userId', adminController.manageUser);
+
+export default router;

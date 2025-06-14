@@ -1,28 +1,30 @@
-const User = require('../models/User.model')
-const debug = require('debug')('app:studentController')
-const MentorshipRequest = require('../models/Mentorship.model') // use as MentorshipRequest in code
+import User from '../models/User.model.js';
+import debugLib from 'debug';
+import MentorshipRequest from '../models/Mentorship.model.js'; // use as MentorshipRequest in code
 
-module.exports = {
+const debug = debugLib('app:studentController');
+
+const studentController = {
   updateProfile: async (req, res) => {
     try {
-      debug(`updateProfile of student: ${req.user.id}`)
+      debug(`updateProfile of student: ${req.user.id}`);
       const user = await User.findByIdAndUpdate(req.user.id, req.body, {
         new: true,
         runValidators: true,
-      })
-      res.json(user)
+      });
+      res.json(user);
     } catch (error) {
-      debug(`Error updating profile: ${error.message}`)
-      res.status(500).json({ error: 'Internal server error' })
+      debug(`Error updating profile: ${error.message}`);
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
   getBatchmates: async (req, res) => {
     try {
-      console.debug(`Fetching batchmates for ${req.user.id}`)
+      console.debug(`Fetching batchmates for ${req.user.id}`);
 
-      const currentUser = await User.findById(req.user.id)
+      const currentUser = await User.findById(req.user.id);
       if (!currentUser) {
-        return res.status(404).json({ error: 'User not found' })
+        return res.status(404).json({ error: 'User not found' });
       }
 
       const batchmates = await User.find({
@@ -30,12 +32,12 @@ module.exports = {
         batch: currentUser.batch,
         branch: currentUser.branch,
         _id: { $ne: req.user.id }, // Exclude self
-      })
+      });
 
-      res.json(batchmates)
+      res.json(batchmates);
     } catch (error) {
-      console.debug(`Error fetching batchmates: ${error.message}`)
-      res.status(500).json({ error: 'Internal server error' })
+      console.debug(`Error fetching batchmates: ${error.message}`);
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
 
@@ -43,25 +45,27 @@ module.exports = {
     try {
       console.debug(
         `Mentorship request from ${req.user.id} to ${req.body.alumniId}`
-      )
+      );
 
       if (!req.body.alumniId || !req.body.message) {
-        return res.status(400).json({ error: 'Missing aluminiId or message' })
+        return res.status(400).json({ error: 'Missing aluminiId or message' });
       }
 
       await MentorshipRequest.create({
         student: req.user.id,
         alumni: req.body.alumniId,
         message: req.body.message,
-      })
+      });
 
-      console.debug('Mentorship request created successfully')
+      console.debug('Mentorship request created successfully');
       res
         .status(201)
-        .json({ message: 'Mentorship request created successfully' })
+        .json({ message: 'Mentorship request created successfully' });
     } catch (err) {
-      console.debug(`Error creating mentorship request: ${err.message}`)
-      res.status(500).json({ error: 'Internal server error' })
+      console.debug(`Error creating mentorship request: ${err.message}`);
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
-}
+};
+
+export default studentController;

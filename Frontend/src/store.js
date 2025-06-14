@@ -1,18 +1,24 @@
-import { legacy_createStore as createStore } from 'redux'
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   sidebarShow: true,
   theme: 'light',
-}
+};
 
-const changeState = (state = initialState, { type, ...rest }) => {
-  switch (type) {
-    case 'set':
-      return { ...state, ...rest }
-    default:
-      return state
-  }
-}
+const appSlice = createSlice({
+  name: 'app',
+  initialState,
+  reducers: {
+    setState(state, action) {
+      return { ...state, ...action.payload };
+    },
+  },
+});
 
-const store = createStore(changeState)
-export default store
+export const { setState } = appSlice.actions;
+
+const store = configureStore({
+  reducer: appSlice.reducer,
+});
+
+export default store;

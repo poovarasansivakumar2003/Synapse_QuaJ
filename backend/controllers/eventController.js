@@ -1,7 +1,9 @@
-const { get } = require('mongoose')
-const Event = require('../models/Event.model')
-const debug = require('debug')('app:eventController')
-module.exports = {
+import Event from '../models/Event.model.js'
+import debugLib from 'debug'
+
+const debug = debugLib('app:eventController')
+
+const eventController = {
   createEvent: async (req, res) => {
     try {
       debug(`Creating event by user: ${req.user.id}`)
@@ -57,3 +59,5 @@ module.exports = {
     }
   },
 }
+
+export default eventController

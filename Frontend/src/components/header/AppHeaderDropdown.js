@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   CAvatar,
   CBadge,
@@ -7,18 +7,35 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-} from '@coreui/react'
+} from '@coreui/react';
 import {
   cilBell,
   cilEnvelopeOpen,
   cilSettings,
   cilUser,
-} from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
 
-import avatar8 from './../../assets/images/avatars/1.jpg'
+import avatar8 from './../../assets/images/avatars/1.jpg'; // Ensure this file exists
 
 const AppHeaderDropdown = () => {
+  const [updatesCount, setUpdatesCount] = useState(0);
+  const [messagesCount, setMessagesCount] = useState(0);
+
+  useEffect(() => {
+    // Fetch notifications count
+    fetch('/api/notifications')
+      .then((response) => response.json())
+      .then((data) => setUpdatesCount(data.count))
+      .catch((error) => console.error('Error fetching notifications:', error));
+
+    // Fetch messages count
+    fetch('/api/messages')
+      .then((response) => response.json())
+      .then((data) => setMessagesCount(data.count))
+      .catch((error) => console.error('Error fetching messages:', error));
+  }, []);
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -29,16 +46,12 @@ const AppHeaderDropdown = () => {
         <CDropdownItem href="#">
           <CIcon icon={cilBell} className="me-2" />
           Updates
-          <CBadge color="info" className="ms-2">
-           {/* no of notif */}
-          </CBadge>
+          <CBadge color="info" className="ms-2">{updatesCount}</CBadge>
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilEnvelopeOpen} className="me-2" />
           Messages
-          <CBadge color="success" className="ms-2">
-            {/* no of notif */}
-          </CBadge>
+          <CBadge color="success" className="ms-2">{messagesCount}</CBadge>
         </CDropdownItem>
 
         <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
@@ -52,7 +65,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
-  )
-}
+  );
+};
 
-export default AppHeaderDropdown
+export default AppHeaderDropdown;

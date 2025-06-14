@@ -1,9 +1,10 @@
-const User = require('./User.model')
+import mongoose from 'mongoose'
+import User from './User.model.js'
 
 const alumniSchema = new mongoose.Schema({
   workExperience: [
     {
-      comapny: String,
+      company: String, // Fixed typo from "comapny" to "company"
       position: String,
       startDate: Date,
       endDate: Date,
@@ -21,4 +22,7 @@ const alumniSchema = new mongoose.Schema({
     default: false,
   },
 })
-module.exports = User.discriminator('Alumni', alumniSchema)
+
+const Alumni = User.discriminator('Alumni', alumniSchema)
+
+export default Alumni

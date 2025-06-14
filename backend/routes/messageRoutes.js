@@ -1,12 +1,14 @@
-const router = require('express').Router()
-const controller = require('../controllers/messageController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/messageController.js';
+import { authenticate } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
+const router = express.Router();
 
-router.post('/conversations', controller.createConversation)
-router.post('/conversations/:conversationId/messages', controller.sendMessage)
-router.get('/conversations', controller.getConversations)
-router.get('/conversations/:conversationId/messages', controller.getMessages)
+router.use(authenticate);
 
-module.exports = router
+router.post('/conversations', controller.createConversation);
+router.post('/conversations/:conversationId/messages', controller.sendMessage);
+router.get('/conversations', controller.getConversations);
+router.get('/conversations/:conversationId/messages', controller.getMessages);
+
+export default router;

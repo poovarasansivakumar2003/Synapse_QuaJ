@@ -1,4 +1,6 @@
-const User = require('./User.model')
+import mongoose from 'mongoose'
+import User from './User.model.js'
+
 const studentSchema = new mongoose.Schema({
   currentSemester: Number,
   cgpa: Number,
@@ -22,8 +24,11 @@ const studentSchema = new mongoose.Schema({
     {
       name: String,
       issuer: String,
-      decodeURIate: Date,
+      date: Date,
     },
   ],
 })
-module.exports = User.discriminator('Student', studentSchema)
+
+const Student = User.discriminator('Student', studentSchema)
+
+export default Student

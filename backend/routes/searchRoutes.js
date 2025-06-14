@@ -1,8 +1,10 @@
-const router = require('express').Router()
-const controller = require('../controllers/searchController')
-const auth = require('../middleware/auth')
+import express from 'express';
+import controller from '../controllers/searchController.js';
+import { authenticate } from '../middleware/auth.js';
 
-router.use(auth.authenticate)
-router.get('/alumni', controller.searchAlumni)
+const router = express.Router();
 
-module.exports = router
+router.use(authenticate);
+router.get('/alumni', controller.searchAlumni);
+
+export default router;

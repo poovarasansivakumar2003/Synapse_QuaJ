@@ -1,7 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/mentorshipController')
-const auth = require('../middleware/auth')
-router.use(auth.authenticate)
-router.get('/active', controller.getActiveMentorships)
-module.exports = router
+import express from 'express';
+import controller from '../controllers/mentorshipController.js';
+import { authenticate } from '../middleware/auth.js';
+
+const router = express.Router();
+
+router.use(authenticate);
+router.get('/active', controller.getActiveMentorships);
+
+export default router;

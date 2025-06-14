@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const leaderboardSchema = new mongoose.Schema(
   {
@@ -26,4 +26,6 @@ const leaderboardSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-module.exports = mongoose.model('Leaderboard', leaderboardSchema)
+const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema)
+
+export default Leaderboard

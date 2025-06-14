@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const mentorshipSchema = new mongoose.Schema(
   {
@@ -32,4 +32,6 @@ const mentorshipSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-module.exports = mongoose.model('Mentorship', mentorshipSchema)
+const Mentorship = mongoose.model('Mentorship', mentorshipSchema)
+
+export default Mentorship
