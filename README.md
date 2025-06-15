@@ -224,7 +224,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- **SYNAPSE QUAJ Team** - Initial work
+- **SYNAPSE QUAJ Team**
+
+| Name            | Role                 | GitHub Profile                                                |
+|------------------|----------------------|----------------------------------------------------------------|
+| **Darshan Gowda M** | Developer/Contributor | [GitHub](https://github.com/Darshan-gowda-m "Directed to Darshan Gowda M's GitHub Profile") |
+| **Shubham Taple S** | Developer/Contributor | [GitHub](https://github.com/ShubhamTaple "Directed to Shubham Taple S's GitHub Profile")    |
+| **Poovarasan S**    | Developer/Contributor | [GitHub](https://github.com/poovarasansivakumar2003 "Directed to Poovarasan's GitHub Profile") |
+| **Jacob Lazar**      | Developer/Contributor | [GitHub](https://github.com/Jacob-Lazar "Directed to Jacob Lazar's GitHub Profile") |
 
 ## 🙏 Acknowledgments
 
