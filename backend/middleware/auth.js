@@ -1,35 +1,19 @@
-const jwt = require('jsonwebtoken')
-const debug = require('debug')('app:auth')
+const jwt = require('jsonwebtoken');
 
-module.exports = {
-  authenticate: (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1]
-    if (!token) {
-      debug('🚫 Authentication failed: No token provided')
-      return res.status(401).json({ error: 'Unauthorized' })
-    }
+const auth = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
 
-    try {
-      req.user = jwt.verify(token, process.env.JWT_SECRET)
-      debug(`🔐 Authenticated user: ${req.user.id}`)
-      debug(`📦 Decoded JWT:`, req.user)
-      next()
-    } catch (err) {
-      debug('❌ Token verification failed:', err.message)
-      res.status(401).json({ error: 'Invalid token' })
-    }
-  },
-  authorize:
-    (...roles) =>
-    (req, res, next) => {
-      if (!roles.includes(req.user.role)) {
-        return res.status(403).json({ error: 'Forbidden' })
-      }
-      next()
-    },
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
 
-  universityContext: (req, res, next) => {
-    req.universityFilter = { university: req.user.university }
-    next()
-  },
-}
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Token is not valid' });
+  }
+};
+
+module.exports = auth;
