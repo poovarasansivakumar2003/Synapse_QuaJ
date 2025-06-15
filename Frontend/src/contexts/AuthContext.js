@@ -34,10 +34,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      console.log('REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL); // Debugging
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, {
         email,
         password
       });
+      console.log('Login Response:', response.data); // Debugging
       
       const { token, user } = response.data;
       
@@ -48,6 +50,7 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       return { success: true };
     } catch (error) {
+      console.error('Login Error:', error.response?.data || error.message); // Debugging
       return { 
         success: false, 
         message: error.response?.data?.message || 'Login failed' 
@@ -57,7 +60,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', userData);
+      console.log('Backend URL:', process.env.REACT_APP_API_BASE_URL); // Debugging
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/register`, userData);
+      console.log('Register Response:', response.data); // Debugging
       
       const { token, user } = response.data;
       
@@ -68,6 +73,7 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       return { success: true };
     } catch (error) {
+      console.error('Register Error:', error.response?.data || error.message); // Debugging
       return { 
         success: false, 
         message: error.response?.data?.message || 'Registration failed' 

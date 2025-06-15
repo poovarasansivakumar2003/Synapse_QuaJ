@@ -54,8 +54,8 @@ const AdminDashboard = () => {
   const fetchUsers = async () => {
     try {
       // This would need an admin-only endpoint
-      const studentsRes = await axios.get('http://localhost:5000/api/users/students');
-      const alumniRes = await axios.get('http://localhost:5000/api/users/alumni');
+      const studentsRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/students`);
+      const alumniRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/alumni`);
       
       const allUsers = [...studentsRes.data, ...alumniRes.data];
       setUsers(allUsers);
@@ -66,8 +66,8 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const studentsRes = await axios.get('http://localhost:5000/api/users/students');
-      const alumniRes = await axios.get('http://localhost:5000/api/users/alumni');
+      const studentsRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/students`);
+      const alumniRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/alumni`);
       
       setStats({
         totalUsers: studentsRes.data.length + alumniRes.data.length,

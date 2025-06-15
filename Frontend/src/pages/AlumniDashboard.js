@@ -52,7 +52,7 @@ const AlumniDashboard = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/users/students');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/students`);
       setStudents(response.data);
       setStats(prev => ({ ...prev, totalConnections: response.data.length }));
     } catch (error) {
@@ -62,7 +62,7 @@ const AlumniDashboard = () => {
 
   const fetchMeetings = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/meetings');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/meetings`);
       setMeetings(response.data);
       setStats(prev => ({ 
         ...prev, 
@@ -84,7 +84,7 @@ const AlumniDashboard = () => {
 
   const startChat = async (studentId) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/chat/start', {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/chat/start`, {
         participantId: studentId
       });
       navigate('/chat', { state: { chatId: response.data._id } });
@@ -98,7 +98,7 @@ const AlumniDashboard = () => {
     setAvailableForMentoring(newValue);
     
     try {
-      await axios.put('http://localhost:5000/api/users/profile', {
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/users/profile`, {
         'preferences.availableForMentoring': newValue
       });
     } catch (error) {

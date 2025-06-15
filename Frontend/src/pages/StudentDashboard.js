@@ -65,13 +65,11 @@ const StudentDashboard = () => {
     try {
       setLoading(true);
       setError('');
-      console.log('Fetching alumni...');
-      const response = await axios.get('http://localhost:5000/api/users/alumni', {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/alumni`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
-      console.log('Alumni response:', response.data);
       setAlumni(response.data);
       setFilteredAlumni(response.data);
     } catch (error) {
@@ -126,7 +124,7 @@ const StudentDashboard = () => {
 
   const startChat = async (alumniId) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/chat/start', {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/chat/start`, {
         participantId: alumniId
       });
       navigate('/chat', { state: { chatId: response.data._id } });
@@ -207,8 +205,8 @@ const StudentDashboard = () => {
                     <Box
                       sx={{
                         position: 'relative',
-                        paddingTop: '56.25%', // 16:9 aspect ratio
-                        backgroundColor: '#f0f0f0',
+                        paddingTop: '56.25%' // 16:9 aspect ratio
+                        ,backgroundColor: '#f0f0f0',
                         backgroundImage: video.thumbnail ? `url(${video.thumbnail})` : 'none',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',

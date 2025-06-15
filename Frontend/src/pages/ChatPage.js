@@ -42,7 +42,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     // Initialize socket connection
-    const newSocket = io('http://localhost:5000');
+    const newSocket = io(process.env.REACT_APP_BACKEND_URL);
     setSocket(newSocket);
 
     fetchChats();
@@ -79,7 +79,7 @@ const ChatPage = () => {
 
   const fetchChats = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/chat');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/chat`);
       setChats(response.data);
     } catch (error) {
       console.error('Error fetching chats:', error);
@@ -113,7 +113,7 @@ const ChatPage = () => {
       socket.emit('send-message', messageData);
       
       // Save to database
-      await axios.post(`http://localhost:5000/api/chat/${activeChat._id}/message`, {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/chat/${activeChat._id}/message`, {
         content: newMessage
       });
 
